@@ -1,0 +1,350 @@
+{
+  "hero-dal": {
+    "file": "Dal Lake, Srinagar at Dusk.jpg",
+    "author": "Slyronit",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Dal_Lake,_Srinagar_at_Dusk.jpg"
+  },
+  "srinagar": {
+    "file": "Dal Lake, Srinagar, Jammu and Kashmir.jpg",
+    "author": "Dashrathgoyal85",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Dal_Lake,_Srinagar,_Jammu_and_Kashmir.jpg"
+  },
+  "gulmarg": {
+    "file": "Snowy sunset at Gulmarg.jpg",
+    "author": "Koshur",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Snowy_sunset_at_Gulmarg.jpg"
+  },
+  "pahalgam": {
+    "file": "Pahalgam Valley.jpg",
+    "author": "KennyOMG",
+    "license": "CC BY-SA 3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Pahalgam_Valley.jpg"
+  },
+  "sonamarg": {
+    "file": "Thajiwas Park, Sonamarg, Jammu and Kashmir, India.jpg",
+    "author": "Original: Ganesh Mohan T Derivative work: UnpetitproleX",
+    "license": "CC BY 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Thajiwas_Park,_Sonamarg,_Jammu_and_Kashmir,_India.jpg"
+  },
+  "doodhpathri": {
+    "file": "Doodhpathri southwest Jammu Kashmir India (4).jpg",
+    "author": "Ankur P from Pune, India",
+    "license": "CC BY-SA 2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Doodhpathri_southwest_Jammu_Kashmir_India_(4).jpg"
+  },
+  "yusmarg": {
+    "file": "Yousmarg.jpg",
+    "author": "Suhail Skindar Sofi",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Yousmarg.jpg"
+  },
+  "gurez": {
+    "file": "Gurez Valley 04.jpg",
+    "author": "Journo Mohsin",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Gurez_Valley_04.jpg"
+  },
+  "jammu": {
+    "file": "Bahu Fort 02.jpg",
+    "author": "Ashish3724",
+    "license": "CC BY-SA 3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Bahu_Fort_02.jpg"
+  },
+  "katra": {
+    "file": "Vaishno Devi, Katra, J&K.jpg",
+    "author": "Porus stationery",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Vaishno_Devi,_Katra,_J%26K.jpg"
+  },
+  "patnitop": {
+    "file": "Patnitop Hill 9.jpg",
+    "author": "Shailendrachauhan95",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Patnitop_Hill_9.jpg"
+  },
+  "leh": {
+    "file": "Leh Palace - Leh - Ladakh - View from Shanti Stupa.jpg",
+    "author": "Sumit Das",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Leh_Palace_-_Leh_-_Ladakh_-_View_from_Shanti_Stupa.jpg"
+  },
+  "nubra": {
+    "file": "Nubra Sand Dunes.jpg",
+    "author": "Raghavan V",
+    "license": "CC BY-SA 3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Nubra_Sand_Dunes.jpg"
+  },
+  "pangong": {
+    "file": "Pangong Tso Lake 1.jpg",
+    "author": "Neek-Theri",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Pangong_Tso_Lake_1.jpg"
+  },
+  "sham-valley": {
+    "file": "Lamayuru, Mountains, Valley, Ladakh, India.jpg",
+    "author": "Vyacheslav Argenberg",
+    "license": "CC BY 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Lamayuru,_Mountains,_Valley,_Ladakh,_India.jpg"
+  },
+  "tso-moriri": {
+    "file": "Tso Moriri - 4.jpg",
+    "author": "Ingo Mehling",
+    "license": "CC BY-SA 3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Tso_Moriri_-_4.jpg"
+  },
+  "khardung-la": {
+    "file": "Khardung La (pass), Ladakh, North India.jpg",
+    "author": "Vyacheslav Argenberg",
+    "license": "CC BY 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Khardung_La_(pass),_Ladakh,_North_India.jpg"
+  },
+  "hanle": {
+    "file": "Whitewashed House Against Snow-Capped Mountains in Hanle, Ladakh.jpg",
+    "author": "DiluteOxygen",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Whitewashed_House_Against_Snow-Capped_Mountains_in_Hanle,_Ladakh.jpg"
+  },
+  "magnetic-hill": {
+    "file": "Magnetic Hill, Leh.jpg",
+    "author": "AKS.9955",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Magnetic_Hill,_Leh.jpg"
+  },
+  "aru": {
+    "file": "Aru Valley Kashmir.jpg",
+    "author": "Irfanaru",
+    "license": "CC0",
+    "source": "https://commons.wikimedia.org/wiki/File:Aru_Valley_Kashmir.jpg"
+  },
+  "betaab": {
+    "file": "Betaab Valley.jpg",
+    "author": "Nandanupadhyay",
+    "license": "CC BY-SA 3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Betaab_Valley.jpg"
+  },
+  "chandanwari": {
+    "file": "Snow Bridge in Chandanwari.jpg",
+    "author": "Akshey25",
+    "license": "CC BY 3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Snow_Bridge_in_Chandanwari.jpg"
+  },
+  "aharbal": {
+    "file": "Aharbal falls, a closer view.jpg",
+    "author": "ThePoeticFrame",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Aharbal_falls,_a_closer_view.jpg"
+  },
+  "mansar": {
+    "file": "Mansar Lake.jpg",
+    "author": "Pranavmagotra03",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Mansar_Lake.jpg"
+  },
+  "sanasar": {
+    "file": "Sanasar Lake Jammu.jpg",
+    "author": "Rupali Kushwaha",
+    "license": "CC BY 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Sanasar_Lake_Jammu.jpg"
+  },
+  "mughal-garden": {
+    "file": "Srinagar - Nishat Gardens 12.jpg",
+    "author": "Vinayaraj",
+    "license": "CC BY-SA 3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Srinagar_-_Nishat_Gardens_12.jpg"
+  },
+  "tulip": {
+    "file": "Indira Gandhi Memorial Tulip garden Srinagar 03.jpg",
+    "author": "Harvinder Chandigarh",
+    "license": "CC BY 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Indira_Gandhi_Memorial_Tulip_garden_Srinagar_03.jpg"
+  },
+  "shah-hamadan": {
+    "file": "Shah-e-Hamadan Masjid Srinagar 01.jpg",
+    "author": "Deepank Ranka",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Shah-e-Hamadan_Masjid_Srinagar_01.jpg"
+  },
+  "floating-market": {
+    "file": "Floating market on Dal Lake, Srinagar 2.jpg",
+    "author": "Slyronit",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Floating_market_on_Dal_Lake,_Srinagar_2.jpg"
+  },
+  "act-gondola": {
+    "file": "Gulmarg Gondola Kashmir 2.jpg",
+    "author": "Dr.himshree",
+    "license": "CC BY 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Gulmarg_Gondola_Kashmir_2.jpg"
+  },
+  "act-snowboarding": {
+    "file": "EvelynSnowboard.jpg",
+    "author": "Jwow976",
+    "license": "CC BY-SA 3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:EvelynSnowboard.jpg"
+  },
+  "act-shikara": {
+    "file": "Shikaras at Dal Lake.jpg",
+    "author": "Dvellakat",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Shikaras_at_Dal_Lake.jpg"
+  },
+  "act-horse": {
+    "file": "Pahalgam views 05.JPG",
+    "author": "Vinayaraj",
+    "license": "CC BY-SA 3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Pahalgam_views_05.JPG"
+  },
+  "act-rafting": {
+    "file": "Zanskar Indus Confluence Rafting.jpg",
+    "author": "CA ANAND V KAKU",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Zanskar_Indus_Confluence_Rafting.jpg"
+  },
+  "act-atv": {
+    "file": "ATV - Quad - SYM Quadlander 200 - Santorini - Greece - 01.jpg",
+    "author": "Norbert Nagel",
+    "license": "CC BY-SA 3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:ATV_-_Quad_-_SYM_Quadlander_200_-_Santorini_-_Greece_-_01.jpg"
+  },
+  "act-iceskating": {
+    "file": "Ice skating Presseggersee.jpg",
+    "author": "Kafubra",
+    "license": "CC BY-SA 3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Ice_skating_Presseggersee.jpg"
+  },
+  "act-trekking": {
+    "file": "Kashmir great lakes trek.jpg",
+    "author": "Adventure pulse trekkers",
+    "license": "CC BY 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Kashmir_great_lakes_trek.jpg"
+  },
+  "act-camping": {
+    "file": "A camp in the Aru Valley.area.Jammu&Kashmir India.jpg",
+    "author": "Photos Worldwide",
+    "license": "CC0",
+    "source": "https://commons.wikimedia.org/wiki/File:A_camp_in_the_Aru_Valley.area.Jammu%26Kashmir_India.jpg"
+  },
+  "act-balloon": {
+    "file": "Hot air balloon in mountains (Unsplash).jpg",
+    "author": "Thomas Kelley thkelley",
+    "license": "CC0",
+    "source": "https://commons.wikimedia.org/wiki/File:Hot_air_balloon_in_mountains_(Unsplash).jpg"
+  },
+  "act-paragliding": {
+    "file": "Paragliding at Sanasar.jpg",
+    "author": "Extremehimalayan at English Wikipedia",
+    "license": "Public domain",
+    "source": "https://commons.wikimedia.org/wiki/File:Paragliding_at_Sanasar.jpg"
+  },
+  "hotel-houseboat": {
+    "file": "Houseboats, Dal Lake, Kashmir.jpg",
+    "author": "Madhumita Das",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Houseboats,_Dal_Lake,_Kashmir.jpg"
+  },
+  "hotel-houseboat-2": {
+    "file": "House boats on Dal Lake, Srinagar 5.jpg",
+    "author": "Slyronit",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:House_boats_on_Dal_Lake,_Srinagar_5.jpg"
+  },
+  "hotel-cottage": {
+    "file": "Patnitop Cottages.jpg",
+    "author": "Vikas Panwar",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Patnitop_Cottages.jpg"
+  },
+  "hotel-snow-hut": {
+    "file": "Snow Clad Hut in Gulmarg, Jammu & Kashmir.jpg",
+    "author": "Zahoor Bhat",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Snow_Clad_Hut_in_Gulmarg,_Jammu_%26_Kashmir.jpg"
+  },
+  "hotel-camp": {
+    "file": "Tent camps in Sarchu.jpg",
+    "author": "Oindrilabhol",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Tent_camps_in_Sarchu.jpg"
+  },
+  "hotel-camp-2": {
+    "file": "Sarchu Camp.jpg",
+    "author": "Plan4shoot",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Sarchu_Camp.jpg"
+  },
+  "hotel-suite-2": {
+    "file": "Rempart Boutique Hotel Diyarbakir Suite Room Interior.jpg",
+    "author": "Ouuzo",
+    "license": "CC BY 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Rempart_Boutique_Hotel_Diyarbakir_Suite_Room_Interior.jpg"
+  },
+  "hotel-leh-house": {
+    "file": "Leh, Houses, Ladakh, India.jpg",
+    "author": "Vyacheslav Argenberg",
+    "license": "CC BY 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Leh,_Houses,_Ladakh,_India.jpg"
+  },
+  "hotel-wilderness": {
+    "file": "Wilderness Adventure Camps.jpg",
+    "author": "The original uploader was Extremehimalayan at English Wikipedia.",
+    "license": "FAL",
+    "source": "https://commons.wikimedia.org/wiki/File:Wilderness_Adventure_Camps.jpg"
+  },
+  "veh-sedan": {
+    "file": "Maruti Suzuki Dzire VXi VVT.JPG",
+    "author": "Biswarup Ganguly",
+    "license": "CC BY 3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Maruti_Suzuki_Dzire_VXi_VVT.JPG"
+  },
+  "veh-premium": {
+    "file": "Toyota Innova Crysta 2.4 Z front right.jpg",
+    "author": "Premnath Kudva",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Toyota_Innova_Crysta_2.4_Z_front_right.jpg"
+  },
+  "veh-tempo": {
+    "file": "Force Traveller, Leh-Manali Highway.jpg",
+    "author": "Yann Forget",
+    "license": "CC BY-SA 3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Force_Traveller,_Leh-Manali_Highway.jpg"
+  },
+  "shiv-khori": {
+    "file": "Landscape shiv khori.jpg",
+    "author": "Shail112",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Landscape_shiv_khori.jpg"
+  },
+  "leh-street": {
+    "file": "Thiksey Monastery, Ladakh 14.jpg",
+    "author": "Bernard Gagnon Canon EOS REBEL T4i",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Thiksey_Monastery,_Ladakh_14.jpg"
+  },
+  "act-skiing": {
+    "file": "Skiers on the ski-lift..JPG",
+    "author": "Rudolph.A.furtado",
+    "license": "CC0",
+    "source": "https://commons.wikimedia.org/wiki/File:Skiers_on_the_ski-lift..JPG"
+  },
+  "act-camel": {
+    "file": "Bactrian camels at Hunder sand dunes Ladakh.jpg",
+    "author": "Lianguanlun",
+    "license": "CC BY 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Bactrian_camels_at_Hunder_sand_dunes_Ladakh.jpg"
+  },
+  "hotel-suite": {
+    "file": "Hotel Suite - Living Room 1.JPG",
+    "author": "Quant",
+    "license": "CC BY-SA 3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Hotel_Suite_-_Living_Room_1.JPG"
+  },
+  "veh-suv": {
+    "file": "Maruti Suzuki Ertiga(1).jpg",
+    "author": "Akashpbrahmavar",
+    "license": "CC0",
+    "source": "https://commons.wikimedia.org/wiki/File:Maruti_Suzuki_Ertiga(1).jpg"
+  }
+}
