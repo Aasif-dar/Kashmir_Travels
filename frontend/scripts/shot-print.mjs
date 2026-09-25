@@ -1,0 +1,10 @@
+import { chromium } from "playwright-core";
+const [url, out] = process.argv.slice(2);
+const b = await chromium.launch({ executablePath: "C:/Program Files/Google/Chrome/Application/chrome.exe", args: ["--no-sandbox"] });
+const p = await b.newPage({ viewport: { width: 794, height: 1123 } });
+await p.goto(url.replace(/\/my-trip.*/, "/my-trip"), { waitUntil: "networkidle" });
+await p.goto(url, { waitUntil: "networkidle" });
+await p.waitForTimeout(1500);
+await p.emulateMedia({ media: "print" });
+await p.screenshot({ path: out, fullPage: true });
+await b.close();
