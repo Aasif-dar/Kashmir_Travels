@@ -33,7 +33,7 @@ export const viewport: Viewport = {
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const [catalog, packages] = await Promise.all([getCatalog(), getPackages()]);
   return (
-    <html lang="en" className={`${display.variable} ${sans.variable}`}>
+    <html lang="en" data-scroll-behavior="smooth" className={`${display.variable} ${sans.variable}`}>
       <body>
         <CatalogProvider catalog={catalog} packages={packages}>
           <TripHydrator />

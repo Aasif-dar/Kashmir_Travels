@@ -2,11 +2,14 @@ import { roadEdges } from "@/data/rules";
 
 /** Tiny road-network helper. Demo hours only — not live routing. */
 const adjacency = new Map<string, Map<string, number>>();
-for (const [a, b, h] of roadEdges) {
+const kmBetween = new Map<string, number>();
+for (const [a, b, h, km] of roadEdges) {
   if (!adjacency.has(a)) adjacency.set(a, new Map());
   if (!adjacency.has(b)) adjacency.set(b, new Map());
   adjacency.get(a)!.set(b, h);
   adjacency.get(b)!.set(a, h);
+  kmBetween.set(`${a}>${b}`, km);
+  kmBetween.set(`${b}>${a}`, km);
 }
 
 const cache = new Map<string, { hours: number; path: string[] }>();
@@ -56,3 +59,12 @@ function lookup(from: string, to: string) {
 
 export const roadHours = (from: string, to: string) => lookup(from, to).hours;
 export const roadPath = (from: string, to: string) => lookup(from, to).path;
+
+/** Approximate road distance (km) along the fastest route. */
+export function roadKm(from: string, to: string): number {
+  const path = roadPath(from, to);
+  if (path.length < 2) return 0;
+  let km = 0;
+  for (let i = 1; i < path.length; i++) km += kmBetween.get(`${path[i - 1]}>${path[i]}`) ?? 0;
+  return km;
+}

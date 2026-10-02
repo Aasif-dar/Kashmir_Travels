@@ -1,6 +1,6 @@
 "use client";
 
-import { SlidersHorizontal, X } from "lucide-react";
+import { X } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import { useMemo, useState } from "react";
 import { PackageCard } from "@/components/packages/package-row";
@@ -35,6 +35,7 @@ const durations = [
   { id: "long", label: "8+ days", test: (d: number) => d >= 8 },
 ];
 const regions = [
+  { id: "", label: "Anywhere" },
   { id: "kashmir", label: "Kashmir" },
   { id: "jammu", label: "Jammu & Katra" },
   { id: "ladakh", label: "Ladakh" },
@@ -43,8 +44,8 @@ const regions = [
 function Group({ legend, children }: { legend: string; children: React.ReactNode }) {
   return (
     <fieldset className="border-t border-line py-5 first:border-t-0 first:pt-0">
-      <legend className="eyebrow mb-3 !text-forest">{legend}</legend>
-      <div className="space-y-1">{children}</div>
+      <legend className="t-label mb-3 !text-[10.5px] text-forest">{legend}</legend>
+      <div className="space-y-0.5">{children}</div>
     </fieldset>
   );
 }
@@ -59,6 +60,10 @@ function Radio({ name, value, current, onChange, label }: { name: string; value:
   );
 }
 
+/**
+ * Journeys with a calm filter bar: region as quiet tabs, three selects, and the rest tucked into a drawer.
+ * The first result is shown large; the others follow in an editorial two-column grid.
+ */
 export function PackageBrowser() {
   const catalog = useCatalog();
   const packages = usePackages();
@@ -92,12 +97,12 @@ export function PackageBrowser() {
   }, [items, f, sort]);
 
   const activeCount = [f.region, f.duration, f.budget, f.category, f.season].filter(Boolean).length + f.activities.length;
+  const drawerCount = [f.category].filter(Boolean).length + f.activities.length;
   const set = <K extends keyof Filters>(k: K, v: Filters[K]) => setF((p) => ({ ...p, [k]: v }));
 
   const panel = (
     <div>
       <Group legend="Region">
-        <Radio name="region" value="" current={f.region} onChange={(v) => set("region", v)} label="Anywhere" />
         {regions.map((r) => <Radio key={r.id} name="region" value={r.id} current={f.region} onChange={(v) => set("region", v)} label={r.label} />)}
       </Group>
       <Group legend="Duration">
@@ -108,15 +113,15 @@ export function PackageBrowser() {
         <Radio name="budget" value="" current={f.budget} onChange={(v) => set("budget", v)} label="Any budget" />
         {budgets.map((b) => <Radio key={b.id} name="budget" value={b.id} current={f.budget} onChange={(v) => set("budget", v)} label={b.label} />)}
       </Group>
+      <Group legend="Season">
+        <Radio name="season" value="" current={f.season} onChange={(v) => set("season", v)} label="Any season" />
+        {seasons.map((s) => <Radio key={s.id} name="season" value={s.id} current={f.season} onChange={(v) => set("season", v)} label={`${s.name} · ${s.label}`} />)}
+      </Group>
       <Group legend="Package type">
         <Radio name="category" value="" current={f.category} onChange={(v) => set("category", v)} label="All types" />
         {categories.map((c) => <Radio key={c} name="category" value={c} current={f.category} onChange={(v) => set("category", v)} label={c} />)}
       </Group>
-      <Group legend="Season">
-        <Radio name="season" value="" current={f.season} onChange={(v) => set("season", v)} label="Any season" />
-        {seasons.map((s) => <Radio key={s.id} name="season" value={s.id} current={f.season} onChange={(v) => set("season", v)} label={`${s.name} · ${s.label.split(" – ").map((x) => x.slice(0, 3)).join("–")}`} />)}
-      </Group>
-      <Group legend="Includes activities">
+      <Group legend="Includes experiences">
         {activityOptions.map((a) => (
           <label key={a.id} className="flex min-h-10 cursor-pointer items-center gap-3 text-[14.5px] text-ink/80">
             <input type="checkbox" checked={f.activities.includes(a.id)} onChange={(e) => set("activities", e.target.checked ? [...f.activities, a.id] : f.activities.filter((x) => x !== a.id))} className="h-4 w-4 accent-[#1d3a2f]" />
@@ -127,63 +132,67 @@ export function PackageBrowser() {
     </div>
   );
 
+  const chips = [
+    f.region && regions.find((r) => r.id === f.region)?.label,
+    f.duration && durations.find((r) => r.id === f.duration)?.label,
+    f.budget && budgets.find((r) => r.id === f.budget)?.label,
+    f.category,
+    f.season && seasons.find((s) => s.id === f.season)?.name,
+    ...f.activities.map((a) => activityOptions.find((x) => x.id === a)?.name),
+  ].filter(Boolean);
+
   return (
-    <div className="grid gap-10 lg:grid-cols-[260px_1fr] lg:gap-14">
-      <aside aria-label="Filters" className="hidden lg:block">
-        <div className="sticky top-24 max-h-[calc(100dvh-7rem)] overflow-y-auto pr-3">
-          <div className="mb-5 flex items-center justify-between">
-            <h2 className="font-display text-3xl">Filter</h2>
-            {activeCount > 0 && <button type="button" onClick={() => setF(empty)} className="text-sm text-forest underline underline-offset-4">Clear all</button>}
-          </div>
-          {panel}
+    <div>
+      {/* filter bar */}
+      <div className="border-b border-line pb-5">
+        <div role="tablist" aria-label="Region" className="no-scrollbar -mx-1 flex gap-x-7 overflow-x-auto px-1">
+          {regions.map((r) => (
+            <button key={r.id || "any"} role="tab" aria-selected={f.region === r.id} onClick={() => set("region", r.id)} className={cn("min-h-11 shrink-0 border-b-2 pb-1 font-display text-[1.5rem] leading-none transition-colors", f.region === r.id ? "border-forest text-forest" : "border-transparent text-muted hover:text-forest")}>
+              {r.label}
+            </button>
+          ))}
         </div>
-      </aside>
-
-      <div>
-        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-line pb-4">
-          <p className="text-sm text-muted" aria-live="polite"><span className="font-semibold text-forest">{results.length}</span> {results.length === 1 ? "journey" : "journeys"}{activeCount ? " match your filters" : ""}</p>
-          <div className="flex items-center gap-3">
-            <Button variant="outline" size="sm" className="lg:hidden" onClick={() => setOpen(true)}>
-              <SlidersHorizontal className="h-4 w-4" aria-hidden /> Filters{activeCount ? ` (${activeCount})` : ""}
-            </Button>
-            <div className="w-44">
-              <label htmlFor="sort" className="sr-only">Sort journeys</label>
-              <Select id="sort" value={sort} onChange={(e) => setSort(e.target.value)} className="h-9 text-sm">
-                <option value="recommended">Recommended</option>
-                <option value="price-asc">Price: low to high</option>
-                <option value="price-desc">Price: high to low</option>
-                <option value="duration">Shortest first</option>
-              </Select>
-            </div>
+        <div className="mt-4 flex flex-wrap items-center gap-3">
+          <div className="hidden w-44 sm:block"><label htmlFor="f-duration" className="sr-only">Duration</label>
+            <Select id="f-duration" value={f.duration} onChange={(e) => set("duration", e.target.value)} className="h-10 text-[14px]"><option value="">Any length</option>{durations.map((d) => <option key={d.id} value={d.id}>{d.label}</option>)}</Select></div>
+          <div className="hidden w-48 sm:block"><label htmlFor="f-budget" className="sr-only">Budget</label>
+            <Select id="f-budget" value={f.budget} onChange={(e) => set("budget", e.target.value)} className="h-10 text-[14px]"><option value="">Any budget</option>{budgets.map((b) => <option key={b.id} value={b.id}>{b.label}</option>)}</Select></div>
+          <div className="hidden w-48 sm:block"><label htmlFor="f-season" className="sr-only">Season</label>
+            <Select id="f-season" value={f.season} onChange={(e) => set("season", e.target.value)} className="h-10 text-[14px]"><option value="">Any season</option>{seasons.map((s) => <option key={s.id} value={s.id}>{s.name}</option>)}</Select></div>
+          <Button variant="outline" size="sm" className="h-10" onClick={() => setOpen(true)}>
+            <span className="sm:hidden">Filters{activeCount ? ` (${activeCount})` : ""}</span>
+            <span className="hidden sm:inline">More filters{drawerCount ? ` (${drawerCount})` : ""}</span>
+          </Button>
+          <div className="ml-auto flex items-center gap-3">
+            <p className="hidden text-[13px] text-muted md:block" aria-live="polite"><span className="font-semibold text-forest">{results.length}</span> {results.length === 1 ? "journey" : "journeys"}</p>
+            <div className="w-40"><label htmlFor="sort" className="sr-only">Sort journeys</label>
+              <Select id="sort" value={sort} onChange={(e) => setSort(e.target.value)} className="h-10 text-[14px]"><option value="recommended">Recommended</option><option value="price-asc">Price: low to high</option><option value="price-desc">Price: high to low</option><option value="duration">Shortest first</option></Select></div>
           </div>
         </div>
-
-        {activeCount > 0 && (
-          <ul className="mt-4 flex flex-wrap gap-2" aria-label="Active filters">
-            {[
-              f.region && regions.find((r) => r.id === f.region)?.label,
-              f.duration && durations.find((r) => r.id === f.duration)?.label,
-              f.budget && budgets.find((r) => r.id === f.budget)?.label,
-              f.category,
-              f.season && seasons.find((s) => s.id === f.season)?.name,
-              ...f.activities.map((a) => activityOptions.find((x) => x.id === a)?.name),
-            ].filter(Boolean).map((label) => (
-              <li key={String(label)} className="inline-flex items-center gap-1.5 border border-line bg-paper px-2.5 py-1 text-[12.5px]">{label}</li>
-            ))}
-          </ul>
-        )}
-
-        {results.length === 0 ? (
-          <EmptyState className="mt-8" title="No journeys match those filters" description="Loosen a filter or two — or build a custom trip and we'll price it live." action={<><Button variant="outline" onClick={() => setF(empty)}>Clear filters</Button><ButtonLink href="/plan-your-trip">Build my own trip</ButtonLink></>} />
-        ) : (
-          <div className="mt-8 grid gap-x-6 gap-y-10 sm:grid-cols-2">
-            {results.map(({ pkg }, i) => <PackageCard key={pkg.id} pkg={pkg} catalog={catalog} priority={i < 2} />)}
+        {chips.length > 0 && (
+          <div className="mt-4 flex flex-wrap items-center gap-2" aria-label="Active filters">
+            {chips.map((label) => <span key={String(label)} className="rounded-[2px] border border-line bg-paper px-2.5 py-1 text-[12.5px]">{label}</span>)}
+            <button type="button" onClick={() => setF(empty)} className="ml-1 text-[12.5px] text-forest underline underline-offset-4">Clear all</button>
           </div>
         )}
       </div>
 
-      <Sheet open={open} onOpenChange={setOpen} title="Filter journeys" side="bottom">
-        <div className="px-5 py-4">{panel}</div>
+      {results.length === 0 ? (
+        <EmptyState className="mt-10" title="No journeys match those filters" description="Loosen a filter or two — or build a custom journey and we'll price it as you go." action={<><Button variant="outline" onClick={() => setF(empty)}>Clear filters</Button><ButtonLink href="/plan-your-trip" caps>Build my journey</ButtonLink></>} />
+      ) : (
+        <div className="mt-10">
+          <p className="mb-6 text-[13px] text-muted md:hidden" aria-live="polite"><span className="font-semibold text-forest">{results.length}</span> {results.length === 1 ? "journey" : "journeys"}</p>
+          {results.length > 2 && sort === "recommended" && (
+            <PackageCard pkg={results[0].pkg} catalog={catalog} priority featured className="border-b border-line pb-12" />
+          )}
+          <div className={cn("grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3", results.length > 2 && sort === "recommended" && "mt-12")}>
+            {(results.length > 2 && sort === "recommended" ? results.slice(1) : results).map(({ pkg }, i) => <PackageCard key={pkg.id} pkg={pkg} catalog={catalog} priority={i < 2} />)}
+          </div>
+        </div>
+      )}
+
+      <Sheet open={open} onOpenChange={setOpen} title="Filter journeys" side="right" className="!w-[min(94vw,420px)]">
+        <div className="px-5 py-5">{panel}</div>
         <div className="sticky bottom-0 flex gap-3 border-t border-line bg-ivory p-4">
           <Button variant="outline" className="flex-1" onClick={() => setF(empty)}><X className="h-4 w-4" aria-hidden /> Clear</Button>
           <Button className="flex-[2]" onClick={() => setOpen(false)}>Show {results.length} {results.length === 1 ? "journey" : "journeys"}</Button>

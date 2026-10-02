@@ -8,6 +8,7 @@ import { ItineraryTimeline } from "@/components/itinerary/itinerary-timeline";
 import { LogoMark } from "@/components/layout/logo";
 import { Button } from "@/components/ui/button";
 import { ErrorState, LoadingBlock } from "@/components/ui/states";
+import { tierById } from "@/data/rules";
 import { site } from "@/data/site";
 import { addDays, formatDate, formatINR } from "@/lib/format";
 import { plural } from "@/lib/utils";
@@ -35,14 +36,14 @@ export function PrintableItinerary({ bookingId }: { bookingId: string }) {
     return () => clearTimeout(t);
   }, [auto, ready]);
 
-  if (state.status === "loading") return <div className="container-x pb-24 pt-32"><LoadingBlock label="Preparing your itinerary…" /></div>;
+  if (state.status === "loading") return <div className="container-x min-h-[100svh] pb-24 pt-32"><LoadingBlock label="Preparing your itinerary…" /></div>;
   if (state.status !== "ready") {
     return <div className="container-x pb-24 pt-32"><ErrorState title="Itinerary not available" description="We couldn't find this booking in this browser." action={<Link href="/my-trip" className="underline">Look up a booking</Link>} /></div>;
   }
   const b = state.booking;
   const t = b.trip;
   const end = addDays(b.customer.travelDate, t.config.days - 1);
-  const stays = t.hotels.map((h) => ({ destinationId: h.destinationId, hotel: { name: h.name } }));
+  const stays = t.hotels.map((h) => ({ destinationId: h.destinationId, hotel: { name: h.name, category: h.category } }));
 
   return (
     <div className="bg-parchment/40 px-4 pb-16 pt-24 print:bg-white print:p-0 sm:px-8">
@@ -95,7 +96,7 @@ export function PrintableItinerary({ bookingId }: { bookingId: string }) {
         </dl>
 
         <h2 className="mt-8 font-display text-3xl">Day-by-day itinerary</h2>
-        <ItineraryTimeline days={t.itinerary} stays={stays} startDate={b.customer.travelDate} print className="mt-5" />
+        <ItineraryTimeline days={t.itinerary} stays={stays} meals={tierById(t.config.tier).mealPlan} startDate={b.customer.travelDate} print className="mt-5" />
 
         <div className="avoid-break mt-8 grid gap-8 sm:grid-cols-2">
           <section>

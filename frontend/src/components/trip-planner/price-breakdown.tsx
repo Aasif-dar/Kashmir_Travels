@@ -3,42 +3,60 @@ import { formatINR } from "@/lib/format";
 import { cn } from "@/lib/utils";
 import type { PriceBreakdown as Price, PriceLine } from "@/types/trip";
 
-const groups: { key: keyof Price["lines"]; label: string; total: keyof Price }[] = [
-  { key: "hotels", label: "Hotels", total: "hotels" },
-  { key: "transport", label: "Transport", total: "transport" },
-  { key: "activities", label: "Activities", total: "activities" },
-  { key: "services", label: "Package services", total: "services" },
-  { key: "meals", label: "Meals", total: "meals" },
-  { key: "taxes", label: "Taxes & fees", total: "taxes" },
-];
+interface Row {
+  label: string;
+  amount: number;
+  lines: PriceLine[];
+}
+
+/** The five lines customers see. "Other" folds package services, permits and taxes together. */
+function rowsOf(p: Price): Row[] {
+  return [
+    { label: "Accommodation", amount: p.hotels, lines: p.lines.hotels },
+    { label: "Transport", amount: p.transport, lines: p.lines.transport },
+    { label: "Activities", amount: p.activities, lines: p.lines.activities },
+    { label: "Meals", amount: p.meals, lines: p.lines.meals },
+    { label: "Other", amount: p.services + p.taxes, lines: [...p.lines.services, ...p.lines.taxes] },
+  ];
+}
 
 /**
- * Itemised estimate. Uses native <details> for the per-line breakdown so it works without JS and is keyboard accessible.
- * Always labelled as an estimated / demo price.
+ * Estimated trip value with a quiet five-line breakdown. Always framed as an estimate; never a headline price.
+ * `showLines` lets each row open to its itemised detail (native <details>, works without JS).
  */
 export function PriceBreakdown({ price, className, animated = true, showLines = true, dark }: { price: Price; className?: string; animated?: boolean; showLines?: boolean; dark?: boolean }) {
   const muted = dark ? "text-ivory/60" : "text-muted";
-  if (price.total === 0) return <p className={cn("text-[14px]", muted, className)}>Choose destinations to see your estimated price.</p>;
+  if (price.total === 0) return <p className={cn("text-[14px]", muted, className)}>Choose destinations to see an estimated trip value.</p>;
+  const rows = rowsOf(price);
   return (
     <div className={cn("text-[14px]", className)}>
-      <dl className={cn("divide-y", dark ? "divide-white/15" : "divide-line")}>
-        {groups.map((g) => {
-          const lines: PriceLine[] = price.lines[g.key];
-          const amount = price[g.total] as number;
-          if (!lines.length && !amount) return null;
+      <p className={cn("t-label !text-[10.5px]", dark ? "text-brass-soft" : "text-brass")}>Estimated trip value</p>
+      <p className="t-price mt-2 text-[2rem]">{animated ? <AnimatedNumber value={price.total} format={formatINR} /> : formatINR(price.total)}</p>
+      <p className={cn("mt-1.5 text-[12.5px]", muted)}>
+        {animated ? <AnimatedNumber value={price.perPerson} format={formatINR} /> : formatINR(price.perPerson)} per person · {price.travellers} {price.travellers === 1 ? "traveller" : "travellers"}
+      </p>
+
+      <ul className={cn("mt-5 divide-y border-y", dark ? "divide-white/15 border-white/15" : "divide-line border-line")}>
+        {rows.map((r) => {
+          const expandable = showLines && r.lines.length > 0;
+          const head = (
+            <>
+              <span className="flex items-center gap-2">
+                {expandable && <span aria-hidden className={cn("text-[9px] transition-transform group-open:rotate-90", muted)}>▶</span>}
+                <span>{r.label}</span>
+              </span>
+              <span className={cn("tabular-nums", r.amount > 0 ? "font-medium" : muted)}>
+                {r.amount > 0 ? formatINR(r.amount) : <><span aria-hidden>—</span><span className="sr-only">Nothing to add</span></>}
+              </span>
+            </>
+          );
           return (
-            <div key={g.key} className="py-2.5">
-              <details className="group" open={false}>
-                <summary className="flex cursor-pointer list-none items-baseline justify-between gap-3 [&::-webkit-details-marker]:hidden">
-                  <dt className="flex items-center gap-1.5">
-                    {showLines && lines.length > 0 && <span aria-hidden className={cn("text-[10px] transition-transform group-open:rotate-90", muted)}>▶</span>}
-                    {g.label}
-                  </dt>
-                  <dd className="font-medium tabular-nums">{formatINR(amount)}</dd>
-                </summary>
-                {showLines && lines.length > 0 && (
+            <li key={r.label} className="py-2.5">
+              {expandable ? (
+                <details className="group">
+                  <summary className="flex cursor-pointer list-none items-baseline justify-between gap-3 [&::-webkit-details-marker]:hidden">{head}</summary>
                   <ul className={cn("mt-2 space-y-1.5 pl-4 text-[12.5px]", muted)}>
-                    {lines.map((l) => (
+                    {r.lines.map((l) => (
                       <li key={l.label} className="flex items-start justify-between gap-3">
                         <span>
                           {l.label}
@@ -48,28 +66,16 @@ export function PriceBreakdown({ price, className, animated = true, showLines = 
                       </li>
                     ))}
                   </ul>
-                )}
-              </details>
-            </div>
+                </details>
+              ) : (
+                <div className="flex items-baseline justify-between gap-3">{head}</div>
+              )}
+            </li>
           );
         })}
-      </dl>
-      <div className={cn("mt-2 border-t-2 pt-4", dark ? "border-brass-soft/60" : "border-forest/70")}>
-        <div className="flex items-end justify-between gap-3">
-          <div>
-            <p className={cn("text-[11px] font-semibold uppercase tracking-[0.16em]", dark ? "text-brass-soft" : "text-brass")}>Estimated total (demo)</p>
-          </div>
-          <p className="font-display text-[2.1rem] leading-none tabular-nums">
-            {animated ? <AnimatedNumber value={price.total} format={formatINR} /> : formatINR(price.total)}
-          </p>
-        </div>
-        <div className="mt-2 flex items-baseline justify-between gap-3">
-          <p className={cn("text-[12.5px]", muted)}>Estimated per person · {price.travellers} {price.travellers === 1 ? "traveller" : "travellers"}</p>
-          <p className="font-display text-xl tabular-nums">{animated ? <AnimatedNumber value={price.perPerson} format={formatINR} /> : formatINR(price.perPerson)}</p>
-        </div>
-      </div>
+      </ul>
       {price.seasonNote && <p className={cn("mt-3 text-[11.5px] leading-snug", muted)}>{price.seasonNote}</p>}
-      <p className={cn("mt-3 text-[11.5px] leading-snug", muted)}>Demo estimate — not live availability or a confirmed quote. Final price is confirmed by our travel team.</p>
+      <p className={cn("mt-3 text-[11.5px] leading-snug", muted)}>Prices shown are estimates and will be confirmed by our travel team.</p>
     </div>
   );
 }

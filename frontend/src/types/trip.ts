@@ -70,6 +70,8 @@ export interface ItineraryDay {
   stayDay: number;
   isTransfer: boolean;
   transferHours?: number;
+  /** Approximate road distance for the day’s transfer, in km. */
+  transferKm?: number;
   transferFromId?: string;
   items: ItineraryItem[];
   noteKey: string;

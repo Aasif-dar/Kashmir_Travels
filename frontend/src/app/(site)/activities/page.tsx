@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import { ActivityBrowser } from "@/components/activities/activity-browser";
+import { FinalCta } from "@/components/home/faq-and-cta";
 import { JsonLd } from "@/components/layout/json-ld";
 import { PageHeader } from "@/components/ui/section";
 import { LoadingBlock } from "@/components/ui/states";
@@ -19,12 +20,13 @@ export default async function ActivitiesPage() {
   return (
     <>
       <JsonLd data={{ "@context": "https://schema.org", "@type": "ItemList", name: "Experiences", itemListElement: activities.map((a, i) => ({ "@type": "ListItem", position: i + 1, url: `${site.url}/activities#${a.id}`, name: a.name })) }} />
-      <PageHeader eyebrow="Experiences" title={<>Things worth <span className="italic text-forest">getting up for</span></>} lede="From a gondola over the Gulmarg bowl to a shikara at dawn. Filter by season, place or travel style — then add them to your trip in the planner." />
-      <section className="container-x py-12 lg:py-16">
-        <Suspense fallback={<LoadingBlock />}>
+      <PageHeader eyebrow="Experiences" title="Things worth getting up for" lede="From a gondola over the Gulmarg bowl to a shikara at dawn. Browse by season, place or travel style — then add them to your journey in the planner." image="act-horse" />
+      <section className="container-x py-10 lg:py-14">
+        <Suspense fallback={<div className="min-h-[100svh]"><LoadingBlock /></div>}>
           <ActivityBrowser />
         </Suspense>
       </section>
+      <FinalCta />
     </>
   );
 }

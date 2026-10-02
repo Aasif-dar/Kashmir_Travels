@@ -52,12 +52,12 @@ export const faqs = [
 ];
 
 export const whyUs = [
-  { title: "Rooted in Srinagar", body: "Our team lives here. We choose the hotels, know the drivers by name and can tell you which side of Dal Lake is quiet on a Sunday." },
-  { title: "Honest estimates", body: "Every price is broken down — hotels, transport, activities, services and taxes — and moves as you change your plan. No surprises when we call." },
-  { title: "Request, then confirm", body: "You never pay to browse or plan. We confirm availability first, then finalise. Nothing pretends to be instant." },
-  { title: "Realistic itineraries", body: "Our planner won't let you squeeze Gulmarg, Pahalgam and Sonamarg into two days. Driving times and altitude are built into the rules." },
-  { title: "Made for your pace", body: "Family, couple, friends, adventure, luxury, photography, spiritual or relaxed — each style shapes the stays, vehicles and experiences we suggest." },
-  { title: "Real people, real answers", body: "Ask a question on WhatsApp and a person from the travel team replies — before, during and after your trip." },
+  { title: "Planned from Srinagar", body: "Our team lives here. We know the roads, the drivers and which side of Dal Lake is quiet on a Sunday." },
+  { title: "Honest estimates", body: "Every price is broken down — stays, transport, activities, meals — and moves as you change your plan. No surprises when we call." },
+  { title: "Request first", body: "You never pay to plan. We check availability with hotels and drivers, then confirm. Nothing pretends to be instant." },
+  { title: "Routes that work", body: "The planner won’t squeeze Gulmarg, Pahalgam and Sonamarg into two days. Driving times and altitude are built in." },
+  { title: "Your pace", body: "Family, couple, friends, adventure, luxury, photography, spiritual or relaxed — each shapes the stays, vehicles and experiences we suggest." },
+  { title: "Real people", body: "Ask on WhatsApp and someone from the travel team replies — before, during and after your trip." },
 ];
 
 export const stories = [
@@ -79,13 +79,14 @@ export const stories = [
 ];
 
 export const journeySteps = [
-  { n: "01", title: "Duration", body: "Pick anything from a long weekend to two weeks." },
-  { n: "02", title: "Destinations", body: "Choose places; the planner checks the combination is realistic." },
-  { n: "03", title: "Itinerary", body: "A day-by-day timeline you can reorder and personalise." },
-  { n: "04", title: "Hotels", body: "Comfort, premium or luxury stays for every night." },
-  { n: "05", title: "Vehicle", body: "Sedan, SUV, premium SUV or a 12-seater tempo traveller." },
-  { n: "06", title: "Activities", body: "Gondolas, shikaras, rafting, camps — added to the right days." },
-  { n: "07", title: "Review", body: "See the complete trip and estimate, then request your booking." },
+  { n: "01", title: "Duration", body: "From a long weekend to two weeks." },
+  { n: "02", title: "Destinations", body: "Add the places you want. We check the combination works." },
+  { n: "03", title: "Style", body: "Family, couple, adventure, luxury — it shapes what we suggest." },
+  { n: "04", title: "Itinerary", body: "A day-by-day route you can reorder and make your own." },
+  { n: "05", title: "Stay", body: "Handpicked stays, one for every destination." },
+  { n: "06", title: "Vehicle", body: "Sedan, SUV, premium SUV or a tempo traveller." },
+  { n: "07", title: "Experiences", body: "Gondolas, shikaras, rafting — placed on the right days." },
+  { n: "08", title: "Review", body: "See the whole journey and estimate, then send your request." },
 ];
 
 export const bookingTerms = [

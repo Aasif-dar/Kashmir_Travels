@@ -13,8 +13,8 @@ export default function NotFound() {
           <h1 className="display-lg mt-3">This path leads <span className="italic text-forest">nowhere yet</span></h1>
           <p className="lede mx-auto mt-5 max-w-md">The page you were looking for has moved, or never existed. Let&apos;s get you back on the road.</p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
-            <ButtonLink href="/" size="lg">Back to home</ButtonLink>
-            <ButtonLink href="/destinations" variant="outline" size="lg">Browse destinations</ButtonLink>
+            <ButtonLink href="/" size="lg" caps>Back to home</ButtonLink>
+            <ButtonLink href="/destinations" variant="outline" size="lg" caps>Browse destinations</ButtonLink>
           </div>
           <p className="mt-6 text-sm text-muted">Or <Link href="/plan-your-trip" className="underline">plan a trip</Link> from scratch.</p>
         </div>

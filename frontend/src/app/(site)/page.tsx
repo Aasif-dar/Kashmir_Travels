@@ -4,7 +4,7 @@ import { BuildYourOwn } from "@/components/home/build-your-own";
 import { CuratedJourneys } from "@/components/home/curated-journeys";
 import { FaqSection, FinalCta } from "@/components/home/faq-and-cta";
 import { HandpickedStays } from "@/components/home/handpicked-stays";
-import { PlannerPreview } from "@/components/home/planner-preview";
+import { IntroStrip } from "@/components/home/intro-strip";
 import { RegionExplorer } from "@/components/home/region-explorer";
 import { SeasonalGuide } from "@/components/home/seasonal-guide";
 import { SignatureExperiences } from "@/components/home/signature-experiences";
@@ -13,16 +13,16 @@ import { TravellerStories, WhyTravelWithUs } from "@/components/home/why-and-sto
 import { JsonLd } from "@/components/layout/json-ld";
 import { faqs } from "@/data/content";
 import { site } from "@/data/site";
-import { getCatalog, getPackages } from "@/services/catalog";
+import { getCatalog, getPackage, getPackages } from "@/services/catalog";
 
 export const metadata: Metadata = {
   title: { absolute: `${site.name} — Kashmir, Jammu, Katra & Ladakh tour packages` },
-  description: "Curated Kashmir, Jammu, Katra and Ladakh journeys. Build your own itinerary, pick hotels, vehicles and experiences, see a transparent estimated price and request your booking.",
+  description: "Curated Kashmir, Jammu, Katra and Ladakh journeys. Build your own itinerary, pick stays, vehicles and experiences, see a transparent estimated price and request your booking.",
   alternates: { canonical: "/" },
 };
 
 export default async function HomePage() {
-  const [catalog, packages] = await Promise.all([getCatalog(), getPackages()]);
+  const [catalog, packages, sample] = await Promise.all([getCatalog(), getPackages(), getPackage("kashmir-essentials")]);
   const destName = (id: string) => catalog.destinations.find((d) => d.id === id)?.name ?? id;
   return (
     <>
@@ -37,10 +37,10 @@ export default async function HomePage() {
         }}
       />
       <Hero />
-      <PlannerPreview />
+      <IntroStrip />
       <RegionExplorer destinations={catalog.destinations} />
-      <CuratedJourneys packages={packages} catalog={catalog} />
-      <BuildYourOwn />
+      <CuratedJourneys packages={packages} />
+      {sample && <BuildYourOwn sample={sample} catalog={catalog} />}
       <SignatureExperiences activities={catalog.activities} destinationName={destName} />
       <HandpickedStays hotels={catalog.hotels} destinations={catalog.destinations} />
       <VehicleShowcase vehicles={catalog.vehicles} />

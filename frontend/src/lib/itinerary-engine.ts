@@ -1,7 +1,7 @@
 import { HUB_LOCAL_HOURS, hubInfo } from "@/data/rules";
 import type { Catalog, ItineraryDay, ItineraryItem, TripConfig, TripStop } from "@/types/trip";
 import type { DayPlan, Destination } from "@/types/destination";
-import { roadHours } from "./geo";
+import { roadHours, roadKm } from "./geo";
 import { formatHours } from "./format";
 
 export const nightsForDays = (days: number) => Math.max(1, days - 1);
@@ -178,6 +178,7 @@ export function buildItinerary(config: TripConfig, catalog: Catalog): ItineraryD
     const items: ItineraryItem[] = [];
     let title = "";
     let transferHours: number | undefined;
+    let transferKm: number | undefined;
     let transferFromId: string | undefined;
     const plan = d.dayPlans[slot.stayDay - 1];
 
@@ -194,6 +195,7 @@ export function buildItinerary(config: TripConfig, catalog: Catalog): ItineraryD
           : `Meet your driver and drive about ${formatHours(h)} to ${d.name}.`,
       });
       transferHours = local ? undefined : h;
+      transferKm = local ? undefined : roadKm(hub.node, d.id);
       transferFromId = local ? undefined : hub.node;
       items.push({ kind: "checkin", title: "Hotel check-in", description: d.region === "ladakh" ? "Settle in and rest — taking it easy matters at altitude." : "Settle in and freshen up." });
       if (plan && h <= 3.5) {
@@ -204,6 +206,7 @@ export function buildItinerary(config: TripConfig, catalog: Catalog): ItineraryD
       const from = dest(prev!.overnightId);
       const h = roadHours(from.id, d.id);
       transferHours = h;
+      transferKm = roadKm(from.id, d.id);
       transferFromId = from.id;
       title = `${from.name} → ${d.name}`;
       items.push({
@@ -231,6 +234,7 @@ export function buildItinerary(config: TripConfig, catalog: Catalog): ItineraryD
       stayDay: slot.stayDay,
       isTransfer: isTransfer || day === 1,
       transferHours,
+      transferKm,
       transferFromId,
       items,
       noteKey: noteKey(slot.overnightId, slot.stayDay),
@@ -250,6 +254,7 @@ export function buildItinerary(config: TripConfig, catalog: Catalog): ItineraryD
     stayDay: 0,
     isTransfer: !local,
     transferHours: local ? undefined : dh,
+    transferKm: local ? undefined : roadKm(lastDest.id, hub.node),
     transferFromId: local ? undefined : lastDest.id,
     items: [
       { kind: "checkin", title: "Breakfast and hotel check-out" },

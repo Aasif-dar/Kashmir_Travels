@@ -243,7 +243,7 @@ export const packages: TourPackage[] = [
     meals: "Breakfast at select stays",
     inclusions: [...COMMON_INCLUSIONS, "Yatra registration & darshan assistance"],
     exclusions: COMMON_EXCLUSIONS,
-    image: "katra",
+    image: "jammu",
     bestMonths: all(12),
     seasonLabel: "Year-round",
     style: "spiritual",

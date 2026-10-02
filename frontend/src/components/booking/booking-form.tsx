@@ -1,7 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ArrowLeft, ArrowRight, Check, Loader2, MessageCircle, Send } from "lucide-react";
+import { ArrowLeft, ArrowRight, Loader2 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
@@ -15,8 +15,7 @@ import { Field, Input, Stepper, Textarea } from "@/components/ui/form";
 import { Sheet } from "@/components/ui/sheet";
 import { EmptyState, ErrorState, IssueList, LoadingBlock } from "@/components/ui/states";
 import { bookingTerms } from "@/data/content";
-import { hubInfo, tierById } from "@/data/rules";
-import { site } from "@/data/site";
+import { hubInfo, styleById, tierById } from "@/data/rules";
 import { buildTripSnapshot, tripTitle, whatsappEnquiryForTrip } from "@/lib/booking";
 import { formatDate } from "@/lib/format";
 import { bookingFormSchema, type BookingFormValues } from "@/lib/validation";
@@ -24,7 +23,7 @@ import { cn, plural } from "@/lib/utils";
 import { createBooking } from "@/services/bookings";
 import { useTripStore } from "@/store/trip-store";
 
-const STEPS = ["Trip summary", "Traveller details", "Review & request"] as const;
+const STEPS = ["Your journey", "About you", "Confirm"] as const;
 
 const tomorrow = () => {
   const d = new Date();
@@ -79,18 +78,18 @@ export function BookingForm() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [travelDate]);
 
-  if (!hydrated) return <div className="container-x pb-24 pt-32"><LoadingBlock label="Loading your trip…" /></div>;
+  if (!hydrated) return <div className="container-x min-h-[100svh] pb-24 pt-12"><LoadingBlock label="Loading your journey…" /></div>;
 
   if (!trip.stops.length) {
     return (
-      <div className="container-x pb-24 pt-32">
-        <EmptyState title="There's no trip to book yet" description="Build your itinerary in the planner first — it only takes a couple of minutes." action={<ButtonLink href="/plan-your-trip" size="lg">Plan My Trip</ButtonLink>} />
+      <div className="container-x min-h-[100svh] pb-24 pt-12">
+        <EmptyState title="There's no journey to request yet" description="Build your itinerary in the planner first — it only takes a couple of minutes." action={<ButtonLink href="/plan-your-trip" size="lg" caps>Build my journey</ButtonLink>} />
       </div>
     );
   }
   if (blocked) {
     return (
-      <div className="container-x pb-24 pt-32">
+      <div className="container-x min-h-[100svh] pb-24 pt-12">
         <ErrorState title="This itinerary needs a change first" description="Something in your plan isn't realistic yet, so we can't send it as a request." action={<ButtonLink href="/plan-your-trip">Back to the planner</ButtonLink>} />
         <IssueList issues={issues.filter((i) => i.severity === "error")} className="mx-auto mt-6 max-w-2xl" />
       </div>
@@ -124,64 +123,67 @@ export function BookingForm() {
   });
 
   const tier = tierById(trip.tier);
+  const style = styleById(trip.style);
   const values = form.getValues();
-  const nextLabel = step === 0 ? "Continue to traveller details" : "Review your request";
+  const timelineStays = stays.map((s) => ({ destinationId: s.destinationId, hotel: s.hotel ? { name: s.hotel.name, category: s.hotel.category } : null }));
+  const activityNames = trip.activities.map((a) => catalog.activities.find((x) => x.id === a.activityId)?.name).filter(Boolean);
 
   const nav = (
     <div className="flex items-center gap-2">
       {step > 0 && <Button variant="outline" size="lg" onClick={() => setStep(step - 1)} aria-label="Back" className="px-4"><ArrowLeft className="h-4 w-4" aria-hidden /></Button>}
       {step < 2 ? (
-        <Button size="lg" onClick={goNext} className="px-5">{step === 0 ? "Continue" : "Review"} <ArrowRight className="h-4 w-4" aria-hidden /></Button>
+        <Button size="lg" caps onClick={goNext} className="px-5">{step === 0 ? "Continue" : "Review"} <ArrowRight className="h-4 w-4" aria-hidden /></Button>
       ) : (
-        <Button size="lg" onClick={onSubmit} disabled={submitting} className="px-5">{submitting ? <Loader2 className="h-4 w-4 animate-spin" aria-hidden /> : <Send className="h-4 w-4" aria-hidden />} Request</Button>
+        <Button size="lg" caps onClick={onSubmit} disabled={submitting} className="px-5">{submitting && <Loader2 className="h-4 w-4 animate-spin" aria-hidden />} Request</Button>
       )}
     </div>
   );
 
   return (
     <div>
-      <nav aria-label="Booking progress" className="border-b border-line bg-ivory/95">
-        <ol className="container-x flex items-center gap-3 py-4">
+      <nav aria-label="Booking progress" className="border-b border-line">
+        <ol className="container-x flex gap-3">
           {STEPS.map((s, i) => (
-            <li key={s} className="flex flex-1 items-center gap-3 last:flex-none">
-              <span className={cn("grid h-8 w-8 shrink-0 place-items-center rounded-full border text-[12px] font-semibold", i === step ? "border-forest bg-forest text-ivory" : i < step ? "border-forest bg-forest/10 text-forest" : "border-stone text-muted")} aria-current={i === step ? "step" : undefined}>
-                {i < step ? <Check className="h-3.5 w-3.5" aria-hidden /> : i + 1}
-              </span>
-              <span className={cn("hidden text-[13px] font-medium sm:block", i === step ? "text-forest" : "text-muted")}>{s}</span>
-              {i < STEPS.length - 1 && <span aria-hidden className={cn("h-px flex-1", i < step ? "bg-forest" : "bg-stone")} />}
+            <li key={s} className="min-w-0 flex-1">
+              <button type="button" disabled={i > step} onClick={() => setStep(i)} aria-current={i === step ? "step" : undefined} className={cn("block w-full border-t-[3px] pb-3 pt-2.5 text-left transition-colors", i === step ? "border-brass" : i < step ? "border-forest" : "border-stone")}>
+                <span className={cn("block font-display text-[1.05rem] leading-none", i === step ? "text-brass" : i < step ? "text-forest" : "text-muted")}>{i < step ? "✓" : String(i + 1).padStart(2, "0")}</span>
+                <span className={cn("mt-1.5 block truncate text-[11px] font-semibold uppercase tracking-[0.14em]", i === step ? "text-forest" : "text-muted")}>{s}</span>
+              </button>
             </li>
           ))}
         </ol>
       </nav>
 
-      <div className="container-x grid gap-10 pb-40 pt-10 lg:grid-cols-[minmax(0,1fr)_380px] lg:gap-14 lg:pb-24 lg:pt-14">
-        <form onSubmit={(e) => { e.preventDefault(); if (step === 2) void onSubmit(); else void goNext(); }} noValidate className="min-w-0" aria-label="Booking request">
-          <p className="eyebrow">Step {step + 1} of 3</p>
-          <h2 className="display-md mt-2" tabIndex={-1}>{STEPS[step]}</h2>
+      <div className="container-x grid gap-10 pb-40 pt-10 lg:grid-cols-[minmax(0,1fr)_380px] lg:gap-16 lg:pb-24 lg:pt-14">
+        <form onSubmit={(e) => { e.preventDefault(); if (step === 2) void onSubmit(); else void goNext(); }} noValidate className="min-w-0" aria-label="Journey request">
+          <p className="eyebrow">{String(step + 1).padStart(2, "0")} — {STEPS[step]}</p>
+          <h2 className="t-h2 mt-3" tabIndex={-1}>{step === 0 ? "Your journey" : step === 1 ? "Tell us who's travelling" : "Confirm and request"}</h2>
 
-          {/* STEP 1 */}
+          {/* 01 — the journey, as our travel team will read it */}
           {step === 0 && (
-            <div className="mt-8 space-y-8">
-              <p className="max-w-2xl text-[15.5px] leading-relaxed text-muted">Here&apos;s the trip you built. If anything looks off, go back and edit it — your choices are saved.</p>
-              <div className="bg-forest p-6 text-ivory sm:p-8">
-                <p className="eyebrow !text-brass-soft">{trip.days} days · {tier.name} level</p>
-                <h3 className="mt-2 font-display text-4xl leading-tight !text-ivory">{tripTitle(trip, catalog)}</h3>
-                <p className="mt-3 text-sm text-ivory/80">{trip.stops.map((s) => `${catalog.destinations.find((d) => d.id === s.destinationId)?.name} (${s.nights}N)`).join(" → ")}</p>
+            <div className="mt-8 space-y-9">
+              <p className="t-lede measure">This is the journey you built. If anything looks off, go back and change it — your choices are saved.</p>
+              <div className="border-y border-line-strong py-6">
+                <p className="t-label !text-[10.5px] text-brass">{trip.days} days · {tier.name}{style ? ` · ${style.label}` : ""}</p>
+                <h3 className="t-h2 mt-2">{tripTitle(trip, catalog)}</h3>
+                <p className="mt-3 text-[15px]">{trip.stops.map((s) => `${catalog.destinations.find((d) => d.id === s.destinationId)?.name} (${s.nights}N)`).join(" → ")}</p>
               </div>
-              <dl className="grid gap-x-10 gap-y-6 sm:grid-cols-2">
-                <div><dt className="eyebrow">Stays</dt><dd className="mt-2 space-y-1 text-[15px]">{stays.map((s) => <p key={s.destinationId}>{s.hotel?.name ?? "To be confirmed"} <span className="text-muted">· {s.destinationName}</span></p>)}</dd></div>
-                <div><dt className="eyebrow">Vehicle</dt><dd className="mt-2 text-[15px]">{vehicle.vehicle?.name ?? "To be arranged"}{vehicle.count > 1 ? ` × ${vehicle.count}` : ""}</dd>
-                  <dt className="eyebrow mt-5">Experiences</dt><dd className="mt-2 text-[15px]">{trip.activities.length ? trip.activities.map((a) => catalog.activities.find((x) => x.id === a.activityId)?.name).filter(Boolean).join(", ") : "None added"}</dd></div>
+              <dl className="grid gap-x-12 gap-y-7 sm:grid-cols-2">
+                <div><dt className="t-label !text-[10.5px] text-brass">Stays</dt><dd className="mt-2 space-y-1.5 text-[15px]">{stays.map((s) => <p key={s.destinationId}>{s.hotel?.name ?? "To be confirmed"} <span className="text-muted">· {s.destinationName}</span></p>)}</dd></div>
+                <div>
+                  <dt className="t-label !text-[10.5px] text-brass">Vehicle</dt><dd className="mt-2 text-[15px]">{vehicle.vehicle?.name ?? "To be arranged"}{vehicle.count > 1 ? ` × ${vehicle.count}` : ""}</dd>
+                  <dt className="t-label mt-5 !text-[10.5px] text-brass">Experiences</dt><dd className="mt-2 text-[15px]">{activityNames.length ? activityNames.join(", ") : "None added"}</dd>
+                </div>
               </dl>
               <IssueList issues={issues.filter((i) => i.severity === "warning")} />
-              <Link href="/plan-your-trip" className="inline-block text-sm font-medium text-forest underline underline-offset-4">Edit my trip</Link>
+              <Link href="/plan-your-trip" className="inline-block text-[13.5px] font-medium text-forest underline underline-offset-4">Change my journey</Link>
             </div>
           )}
 
-          {/* STEP 2 */}
+          {/* 02 — details */}
           {step === 1 && (
             <div className="mt-8 space-y-7">
-              <p className="max-w-2xl text-[15.5px] leading-relaxed text-muted">So our team knows who to talk to. We&apos;ll only use these details to reply to your request.</p>
+              <p className="t-lede measure">So our team knows who to talk to. We only use these details to reply to your request.</p>
               <div className="grid gap-6 sm:grid-cols-2">
                 <Field label="Full name" htmlFor="fullName" error={errors.fullName?.message} required>
                   <Input id="fullName" autoComplete="name" aria-invalid={!!errors.fullName} aria-describedby={errors.fullName ? "fullName-error" : undefined} {...register("fullName")} />
@@ -207,36 +209,31 @@ export function BookingForm() {
                 <Field label="Pickup location" htmlFor="pickupLocation" error={errors.pickupLocation?.message} className="sm:col-span-2" hint="Usually the airport or station you arrive at." required>
                   <Input id="pickupLocation" aria-invalid={!!errors.pickupLocation} aria-describedby={errors.pickupLocation ? "pickupLocation-error" : undefined} {...register("pickupLocation")} />
                 </Field>
-                <Field label="Special requests" htmlFor="specialRequests" error={errors.specialRequests?.message} className="sm:col-span-2" hint="Dietary needs, celebrations, mobility, preferred hotels…">
+                <Field label="Special requests" htmlFor="specialRequests" error={errors.specialRequests?.message} className="sm:col-span-2" hint="Dietary needs, celebrations, mobility, hotels you'd prefer…">
                   <Textarea id="specialRequests" maxLength={600} {...register("specialRequests")} />
                 </Field>
               </div>
-              <p className="text-xs text-muted">Changing adults or children updates the estimate immediately.</p>
+              <p className="text-[12.5px] text-muted">Changing adults or children updates the estimate at once.</p>
             </div>
           )}
 
-          {/* STEP 3 */}
+          {/* 03 — confirm */}
           {step === 2 && (
-            <div className="mt-8 space-y-10">
-              <p className="max-w-2xl text-[15.5px] leading-relaxed text-muted">One last look. Sending this creates a booking <strong>request</strong> with a reference number — it isn&apos;t a confirmed booking and nothing is charged.</p>
-              <div className="grid gap-6 border-y border-line py-6 sm:grid-cols-2">
-                <dl className="space-y-3 text-[15px]">
-                  <div><dt className="eyebrow">Traveller</dt><dd className="mt-1">{values.fullName}</dd><dd className="text-muted">{values.email} · {values.phone}</dd></div>
-                  <div><dt className="eyebrow">Travellers</dt><dd className="mt-1">{plural(values.adults, "adult")}{values.children ? `, ${plural(values.children, "child", "children")}` : ""}</dd></div>
-                </dl>
-                <dl className="space-y-3 text-[15px]">
-                  <div><dt className="eyebrow">Arrival date</dt><dd className="mt-1">{values.travelDate ? formatDate(values.travelDate, { day: "numeric", month: "long", year: "numeric", weekday: "long" }) : "—"}</dd></div>
-                  <div><dt className="eyebrow">Pickup</dt><dd className="mt-1">{values.pickupLocation}</dd></div>
-                  {values.specialRequests && <div><dt className="eyebrow">Special requests</dt><dd className="mt-1 text-muted">{values.specialRequests}</dd></div>}
-                </dl>
-              </div>
+            <div className="mt-8 space-y-12">
+              <p className="t-lede measure">One last look. Sending this creates a journey <strong className="font-semibold text-ink">request</strong> with a reference number — it isn&apos;t a confirmed booking, and nothing is charged.</p>
+              <dl className="grid gap-x-12 gap-y-5 border-y border-line-strong py-6 sm:grid-cols-2">
+                <div><dt className="t-label !text-[10px] text-brass">Traveller</dt><dd className="mt-1 text-[15px]">{values.fullName}<br /><span className="text-muted">{values.email} · {values.phone}</span></dd></div>
+                <div><dt className="t-label !text-[10px] text-brass">Arrival</dt><dd className="mt-1 text-[15px]">{values.travelDate ? formatDate(values.travelDate, { day: "numeric", month: "long", year: "numeric", weekday: "long" }) : "—"}<br /><span className="text-muted">Pickup: {values.pickupLocation}</span></dd></div>
+                <div><dt className="t-label !text-[10px] text-brass">Travellers</dt><dd className="mt-1 text-[15px]">{plural(values.adults, "adult")}{values.children ? `, ${plural(values.children, "child", "children")}` : ""}</dd></div>
+                {values.specialRequests && <div><dt className="t-label !text-[10px] text-brass">Special requests</dt><dd className="mt-1 text-[15px] text-muted">{values.specialRequests}</dd></div>}
+              </dl>
               <div>
-                <h3 className="font-display text-3xl">Itinerary</h3>
-                <ItineraryTimeline days={itinerary} stays={stays} startDate={values.travelDate || undefined} className="mt-6" />
+                <h3 className="font-display text-[1.7rem] leading-none">Itinerary</h3>
+                <ItineraryTimeline days={itinerary} stays={timelineStays} meals={tier.mealPlan} startDate={values.travelDate || undefined} className="mt-7" />
               </div>
-              <div className="border border-line bg-paper p-6"><h3 className="font-display text-3xl">Price estimate</h3><PriceBreakdown price={price} className="mt-4" /></div>
+              <div className="rounded-[3px] border border-line bg-paper p-6"><PriceBreakdown price={price} /></div>
 
-              <div className="border border-forest/30 bg-parchment/50 p-5">
+              <div className="rounded-[3px] border border-line-strong bg-parchment/40 p-5">
                 <div className="flex items-start gap-3">
                   <input id="terms" type="checkbox" className="mt-1 h-5 w-5 shrink-0 accent-[#1d3a2f]" aria-invalid={!!errors.terms} aria-describedby={errors.terms ? "terms-error" : undefined} {...register("terms")} />
                   <label htmlFor="terms" className="text-[15px] leading-snug">
@@ -247,16 +244,20 @@ export function BookingForm() {
               </div>
 
               {failure && (
-                <ErrorState title="We couldn't send your request" description={failure} action={<><Button onClick={() => void onSubmit()}>Try again</Button><ButtonLink variant="outline" href={whatsappEnquiryForTrip(trip, catalog, { name: values.fullName })}><MessageCircle className="h-4 w-4" aria-hidden /> Send on WhatsApp instead</ButtonLink></>} />
+                <ErrorState title="We couldn't send your request" description={failure} action={<><Button onClick={() => void onSubmit()}>Try again</Button><ButtonLink variant="outline" href={whatsappEnquiryForTrip(trip, catalog, { name: values.fullName })}>Send on WhatsApp instead</ButtonLink></>} />
               )}
             </div>
           )}
 
           <div className="mt-12 hidden items-center justify-between border-t border-line pt-6 lg:flex">
-            <div>{step > 0 ? <Button variant="outline" size="lg" onClick={() => setStep(step - 1)}><ArrowLeft className="h-4 w-4" aria-hidden /> Back</Button> : <ButtonLink variant="ghost" size="lg" href="/plan-your-trip"><ArrowLeft className="h-4 w-4" aria-hidden /> Back to planner</ButtonLink>}</div>
-            {step < 2 ? <Button size="lg" onClick={goNext}>{nextLabel} <ArrowRight className="h-4 w-4" aria-hidden /></Button> : <Button size="lg" type="submit" disabled={submitting}>{submitting ? <><Loader2 className="h-4 w-4 animate-spin" aria-hidden /> Sending…</> : <>Request Booking <Send className="h-4 w-4" aria-hidden /></>}</Button>}
+            <div>{step > 0 ? <Button variant="outline" size="lg" caps onClick={() => setStep(step - 1)}><ArrowLeft className="h-4 w-4" aria-hidden /> Back</Button> : <ButtonLink variant="ghost" size="lg" caps href="/plan-your-trip"><ArrowLeft className="h-4 w-4" aria-hidden /> Back to the planner</ButtonLink>}</div>
+            {step < 2 ? (
+              <Button size="lg" caps onClick={goNext}>{step === 0 ? "Continue" : "Review your request"} <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden /></Button>
+            ) : (
+              <Button size="lg" caps type="submit" disabled={submitting}>{submitting ? <><Loader2 className="h-4 w-4 animate-spin" aria-hidden /> Sending…</> : <>Request this journey <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden /></>}</Button>
+            )}
           </div>
-          <p className="mt-4 text-xs text-muted">{site.name} will contact you to confirm availability. Your request is saved in this browser for the demo.</p>
+          <p className="mt-4 text-[12.5px] text-muted">Our travel team will contact you to confirm availability. In this demo your request is saved in this browser.</p>
         </form>
 
         <div className="hidden lg:block"><TripSummary api={api} /></div>
@@ -264,7 +265,7 @@ export function BookingForm() {
 
       <MobileSummaryBar api={api}>{nav}</MobileSummaryBar>
 
-      <Sheet open={termsOpen} onOpenChange={setTermsOpen} title="Booking terms" description="Please read before requesting your booking." side="center">
+      <Sheet open={termsOpen} onOpenChange={setTermsOpen} title="Booking terms" description="Please read before requesting your journey." side="center">
         <ol className="list-decimal space-y-3 px-9 py-6 text-[14.5px] leading-relaxed text-ink/85">
           {bookingTerms.map((t) => <li key={t}>{t}</li>)}
         </ol>

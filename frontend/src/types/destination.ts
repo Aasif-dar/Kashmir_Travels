@@ -21,6 +21,8 @@ export interface Destination {
   name: string;
   region: Region;
   tagline: string;
+  /** One short line for tiles and captions. */
+  shortTagline?: string;
   /** Editorial paragraphs shown on the destination page. */
   description: string[];
   /** Image registry key (see data/images.ts). */

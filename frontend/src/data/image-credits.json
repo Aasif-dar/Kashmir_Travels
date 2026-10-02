@@ -5,18 +5,6 @@
     "license": "CC BY-SA 4.0",
     "source": "https://commons.wikimedia.org/wiki/File:Dal_Lake,_Srinagar_at_Dusk.jpg"
   },
-  "srinagar": {
-    "file": "Dal Lake, Srinagar, Jammu and Kashmir.jpg",
-    "author": "Dashrathgoyal85",
-    "license": "CC BY-SA 4.0",
-    "source": "https://commons.wikimedia.org/wiki/File:Dal_Lake,_Srinagar,_Jammu_and_Kashmir.jpg"
-  },
-  "gulmarg": {
-    "file": "Snowy sunset at Gulmarg.jpg",
-    "author": "Koshur",
-    "license": "CC BY-SA 4.0",
-    "source": "https://commons.wikimedia.org/wiki/File:Snowy_sunset_at_Gulmarg.jpg"
-  },
   "pahalgam": {
     "file": "Pahalgam Valley.jpg",
     "author": "KennyOMG",
@@ -52,12 +40,6 @@
     "author": "Ashish3724",
     "license": "CC BY-SA 3.0",
     "source": "https://commons.wikimedia.org/wiki/File:Bahu_Fort_02.jpg"
-  },
-  "katra": {
-    "file": "Vaishno Devi, Katra, J&K.jpg",
-    "author": "Porus stationery",
-    "license": "CC BY-SA 4.0",
-    "source": "https://commons.wikimedia.org/wiki/File:Vaishno_Devi,_Katra,_J%26K.jpg"
   },
   "patnitop": {
     "file": "Patnitop Hill 9.jpg",
@@ -335,16 +317,64 @@
     "license": "CC BY 4.0",
     "source": "https://commons.wikimedia.org/wiki/File:Bactrian_camels_at_Hunder_sand_dunes_Ladakh.jpg"
   },
+  "srinagar": {
+    "file": "Dal Lake Hazratbal Srinagar.jpg",
+    "author": "Suhail Skindar Sofi",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Dal_Lake_Hazratbal_Srinagar.jpg"
+  },
+  "gulmarg": {
+    "file": "Kongdoori Station, Gulmarg 2.jpg",
+    "author": "Slyronit",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Kongdoori_Station,_Gulmarg_2.jpg"
+  },
+  "katra": {
+    "file": "Katra Vaishno Devi temple Seen1.jpg",
+    "author": "Maheshkumarrathi",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Katra_Vaishno_Devi_temple_Seen1.jpg"
+  },
   "hotel-suite": {
-    "file": "Hotel Suite - Living Room 1.JPG",
-    "author": "Quant",
-    "license": "CC BY-SA 3.0",
-    "source": "https://commons.wikimedia.org/wiki/File:Hotel_Suite_-_Living_Room_1.JPG"
+    "file": "Suite room Nadiya hotel.jpg",
+    "author": "Nadiaweb83",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Suite_room_Nadiya_hotel.jpg"
   },
   "veh-suv": {
-    "file": "Maruti Suzuki Ertiga(1).jpg",
-    "author": "Akashpbrahmavar",
+    "file": "Moscow, Suzuki Ertiga, June 2025 04.jpg",
+    "author": "Retired electrician",
     "license": "CC0",
-    "source": "https://commons.wikimedia.org/wiki/File:Maruti_Suzuki_Ertiga(1).jpg"
+    "source": "https://commons.wikimedia.org/wiki/File:Moscow,_Suzuki_Ertiga,_June_2025_04.jpg"
+  },
+  "gulmarg-meadow": {
+    "file": "Gulmarg - Jannat on Earth.jpg",
+    "author": "Vikas Panwar",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Gulmarg_-_Jannat_on_Earth.jpg"
+  },
+  "hotel-resort": {
+    "file": "A Beautiful home - Sonmarg.jpg",
+    "author": "Sanu N",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:A_Beautiful_home_-_Sonmarg.jpg"
+  },
+  "hotel-tent-lux": {
+    "file": "Nimmu House - Glamping Tent - Interior.jpg",
+    "author": "Unbiased Contributors",
+    "license": "CC BY 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Nimmu_House_-_Glamping_Tent_-_Interior.jpg"
+  },
+  "hotel-houseboat-3": {
+    "file": "Dal lake by Ahanger HOBO.jpg",
+    "author": "Abid Sidiq Ahanger",
+    "license": "CC BY 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Dal_lake_by_Ahanger_HOBO.jpg"
+  },
+  "hotel-cottage-2": {
+    "file": "Patnitop Cottages - Relax in Nature.jpg",
+    "author": "Vikas Panwar",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Patnitop_Cottages_-_Relax_in_Nature.jpg"
   }
 }

@@ -18,15 +18,14 @@ export const site = {
   },
 } as const;
 
+/** Primary navigation. Hotels and Vehicles live inside the planner and the footer, keeping the bar calm. */
 export const nav = [
   { label: "Destinations", href: "/destinations" },
   { label: "Packages", href: "/packages" },
-  { label: "Plan Your Trip", href: "/plan-your-trip" },
   { label: "Experiences", href: "/activities" },
-  { label: "Hotels", href: "/hotels" },
-  { label: "Vehicles", href: "/vehicles" },
+  { label: "Build Your Trip", href: "/plan-your-trip" },
+  { label: "Travel Guide", href: "/travel-guide" },
   { label: "About", href: "/about" },
-  { label: "Contact", href: "/contact" },
 ] as const;
 
 export const originCities = ["Delhi", "Mumbai", "Bengaluru", "Kolkata", "Hyderabad", "Chennai", "Ahmedabad", "Pune", "Chandigarh", "Jaipur", "Lucknow", "Other city"] as const;

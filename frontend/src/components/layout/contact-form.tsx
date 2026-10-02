@@ -58,7 +58,7 @@ export function ContactForm() {
         <Textarea id="c-message" rows={6} aria-invalid={!!errors.message} aria-describedby={errors.message ? "c-message-error" : undefined} {...register("message")} />
       </Field>
       {failure && <ErrorState title="We couldn't send your message" description={failure} action={<ButtonLink href={whatsappLink(`Hello ${site.short}! ${getValues("message") || "I have a question."}`)} variant="outline">Message on WhatsApp</ButtonLink>} />}
-      <Button type="submit" size="lg" disabled={isSubmitting}>{isSubmitting ? <Loader2 className="h-4 w-4 animate-spin" aria-hidden /> : <Send className="h-4 w-4" aria-hidden />} Send message</Button>
+      <Button type="submit" size="lg" caps disabled={isSubmitting}>{isSubmitting ? <Loader2 className="h-4 w-4 animate-spin" aria-hidden /> : <Send className="h-4 w-4" aria-hidden />} Send message</Button>
     </form>
   );
 }

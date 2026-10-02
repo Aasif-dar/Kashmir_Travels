@@ -22,6 +22,7 @@ export const tiers: TierDefinition[] = [
     transfers: "Airport and inter-city transfers",
     support: "Basic support by phone / WhatsApp",
     customisation: "Standard itinerary, limited changes",
+    mealPlan: ["Breakfast at select stays"],
     inclusions: ["3-star accommodation", "Standard vehicle with driver", "Selected sightseeing", "Basic trip support"],
     servicePerPersonPerDay: 600,
     mealsPerPersonPerNight: 0,
@@ -41,6 +42,7 @@ export const tiers: TierDefinition[] = [
     transfers: "Airport and inter-city transfers",
     support: "Trip assistance with a named coordinator",
     customisation: "Flexible activities and pacing",
+    mealPlan: ["Breakfast"],
     inclusions: ["4-star accommodation", "Premium vehicle with driver", "Daily breakfast", "Selected activities", "Trip assistance"],
     servicePerPersonPerDay: 1100,
     mealsPerPersonPerNight: 500,
@@ -60,6 +62,7 @@ export const tiers: TierDefinition[] = [
     transfers: "Private airport and inter-city transfers",
     support: "Priority assistance, dedicated expert on call",
     customisation: "Fully flexible, day by day",
+    mealPlan: ["Breakfast", "Dinner"],
     inclusions: ["Luxury / boutique accommodation", "Premium SUV with driver", "Breakfast and dinner", "Curated experiences", "Priority assistance", "Flexible itinerary"],
     servicePerPersonPerDay: 2200,
     mealsPerPersonPerNight: 1400,
@@ -73,25 +76,26 @@ export const tierById = (id: Tier) => tiers.find((t) => t.id === id) ?? tiers[1]
 /* Road network — approximate driving hours between neighbouring stops */
 /* Demo values; used by the itinerary engine and transport pricing.    */
 /* ------------------------------------------------------------------ */
-export const roadEdges: [string, string, number][] = [
-  ["srinagar", "gulmarg", 2.5],
-  ["srinagar", "pahalgam", 3],
-  ["srinagar", "sonamarg", 3],
-  ["srinagar", "doodhpathri", 2.5],
-  ["srinagar", "yusmarg", 2],
-  ["srinagar", "gurez", 7],
-  ["gulmarg", "doodhpathri", 3.5],
-  ["srinagar", "patnitop", 5.5],
-  ["patnitop", "jammu", 3.5],
-  ["patnitop", "katra", 2.5],
-  ["jammu", "katra", 1.5],
-  ["sonamarg", "leh", 9.5],
-  ["leh", "sham-valley", 2.5],
-  ["leh", "nubra", 5],
-  ["leh", "pangong", 5],
-  ["leh", "tso-moriri", 8],
-  ["nubra", "pangong", 6],
-  ["pangong", "tso-moriri", 7],
+/** [from, to, driving hours, approx. km] */
+export const roadEdges: [string, string, number, number][] = [
+  ["srinagar", "gulmarg", 2.5, 50],
+  ["srinagar", "pahalgam", 3, 95],
+  ["srinagar", "sonamarg", 3, 80],
+  ["srinagar", "doodhpathri", 2.5, 42],
+  ["srinagar", "yusmarg", 2, 47],
+  ["srinagar", "gurez", 7, 128],
+  ["gulmarg", "doodhpathri", 3.5, 78],
+  ["srinagar", "patnitop", 5.5, 190],
+  ["patnitop", "jammu", 3.5, 112],
+  ["patnitop", "katra", 2.5, 90],
+  ["jammu", "katra", 1.5, 50],
+  ["sonamarg", "leh", 9.5, 340],
+  ["leh", "sham-valley", 2.5, 90],
+  ["leh", "nubra", 5, 120],
+  ["leh", "pangong", 5, 160],
+  ["leh", "tso-moriri", 8, 215],
+  ["nubra", "pangong", 6, 165],
+  ["pangong", "tso-moriri", 7, 210],
 ];
 
 /** Local transfer between a hub airport/station and the hub city itself. */
@@ -258,7 +262,7 @@ export const seasons: Season[] = [
   { id: "spring", name: "Spring", months: [2, 3], label: "March – April", headline: "Tulips, blossoms and gardens", description: "Almond and cherry blossom arrive, the Tulip Garden opens in April and the Mughal gardens are at their best.", activityIds: ["mughal-gardens-circuit", "shikara-ride", "old-city-walk", "horse-riding"], activityCategories: ["culture", "nature"], destinationIds: ["srinagar", "pahalgam", "doodhpathri"], image: "tulip" },
   { id: "summer", name: "Summer", months: [4, 5], label: "May – June", headline: "Meadows, rivers and open roads", description: "Green meadows, trekking trails and rafting open up. Ladakh's roads begin to open for the season.", activityIds: ["river-rafting", "pahalgam-meadow-trek", "horse-riding", "atv-ride", "alpather-trek"], activityCategories: ["adventure", "water", "nature"], destinationIds: ["pahalgam", "sonamarg", "gulmarg", "leh"], image: "pahalgam" },
   { id: "highsummer", name: "High summer", months: [6, 7], label: "July – August", headline: "Ladakh at its best", description: "Kashmir stays green and cooler than the plains, while Ladakh is at its clearest and most accessible.", activityIds: ["monastery-circuit", "camel-safari", "mountain-biking", "river-rafting"], activityCategories: ["culture", "adventure"], destinationIds: ["leh", "nubra", "pangong", "sham-valley", "tso-moriri"], image: "pangong" },
-  { id: "autumn", name: "Autumn", months: [8, 9, 10], label: "September – November", headline: "Chinar gold and clear light", description: "Chinar trees turn copper, skies clear and the light is perfect for photographers. Crowds thin out.", activityIds: ["shikara-ride", "old-city-walk", "mughal-gardens-circuit", "houseboat-dinner"], activityCategories: ["culture", "nature"], destinationIds: ["srinagar", "pahalgam", "gurez", "yusmarg"], image: "hero-dal" },
+  { id: "autumn", name: "Autumn", months: [8, 9, 10], label: "September – November", headline: "Chinar gold and clear light", description: "Chinar trees turn copper, skies clear and the light is perfect for photographers. Crowds thin out.", activityIds: ["shikara-ride", "old-city-walk", "mughal-gardens-circuit", "houseboat-dinner"], activityCategories: ["culture", "nature"], destinationIds: ["srinagar", "pahalgam", "gurez", "yusmarg"], image: "hotel-houseboat-3" },
 ];
 
 export const seasonForMonth = (m: number | null | undefined) => (m == null ? undefined : seasons.find((s) => s.months.includes(m)));

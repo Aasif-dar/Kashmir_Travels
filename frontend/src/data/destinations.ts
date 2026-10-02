@@ -7,6 +7,7 @@ export const destinations: Destination[] = [
     slug: "srinagar",
     name: "Srinagar",
     region: "kashmir",
+    shortTagline: "Houseboats, gardens and the light on Dal Lake.",
     tagline: "Houseboats, chinar trees and the slow light of Dal Lake",
     description: [
       "Srinagar is where most Kashmir journeys begin, and it rewards the traveller who does not rush it. The city curls around Dal Lake, where shikaras slide between lotus beds at dawn and the floating vegetable market trades before the tourists wake.",
@@ -15,7 +16,7 @@ export const destinations: Destination[] = [
     ],
     image: "srinagar",
     gallery: ["hero-dal", "mughal-garden", "floating-market", "shah-hamadan", "tulip"],
-    recommendedDays: "2–3 days",
+    recommendedDays: "2–3 nights",
     recommendedNights: 2,
     minNights: 1,
     maxNights: 4,
@@ -49,6 +50,7 @@ export const destinations: Destination[] = [
     slug: "gulmarg",
     name: "Gulmarg",
     region: "kashmir",
+    shortTagline: "Snow, slopes & mountain air.",
     tagline: "The meadow of flowers — and India's great ski bowl",
     description: [
       "Gulmarg is a high alpine bowl at 2,650 metres, ringed by pine forest and looking straight at Nanga Parbat on a clear day. In summer it is a green meadow with grazing ponies; in winter it becomes one of the most talked-about ski destinations in South Asia.",
@@ -88,6 +90,7 @@ export const destinations: Destination[] = [
     slug: "pahalgam",
     name: "Pahalgam",
     region: "kashmir",
+    shortTagline: "Pine valleys and a loud green river.",
     tagline: "The valley of shepherds, cut by the Lidder river",
     description: [
       "Pahalgam is softer than Gulmarg — a river valley of pine, walnut and meadow where the Lidder runs loud and green beside the road. It is the gateway to Aru, Betaab Valley, Baisaran and the start of the Amarnath and Kolahoi routes.",
@@ -127,6 +130,7 @@ export const destinations: Destination[] = [
     slug: "sonamarg",
     name: "Sonamarg",
     region: "kashmir",
+    shortTagline: "Glaciers on the road to Ladakh.",
     tagline: "The meadow of gold on the road to Ladakh",
     description: [
       "Sonamarg sits where the Sindh river opens into a broad valley below glaciers, at the foot of the Zojila pass. It is a dramatic place — jagged peaks, glacial water, wildflowers in summer and deep white winters.",
@@ -163,6 +167,7 @@ export const destinations: Destination[] = [
     slug: "doodhpathri",
     name: "Doodhpathri",
     region: "kashmir",
+    shortTagline: "Quiet meadows and a milk-white stream.",
     tagline: "A valley of milk — quiet meadows and the Shaliganga stream",
     description: [
       "Doodhpathri is one of the newer favourites: a broad grass bowl in Budgam district ringed by pine, with the milky Shaliganga stream running through it. It is far less crowded than Gulmarg and Pahalgam.",
@@ -199,6 +204,7 @@ export const destinations: Destination[] = [
     slug: "yusmarg",
     name: "Yusmarg",
     region: "kashmir",
+    shortTagline: "A green bowl of pine and stillness.",
     tagline: "A green bowl of pine and stillness, near Nilnag lake",
     description: [
       "Yusmarg is a quiet meadow reachable from Srinagar in about two hours, with the emerald Nilnag lake set into forest a short drive beyond. It suits travellers who want a peaceful contrast to the busier hill stations.",
@@ -232,6 +238,7 @@ export const destinations: Destination[] = [
     slug: "gurez",
     name: "Gurez",
     region: "kashmir",
+    shortTagline: "A remote valley beyond the Razdan pass.",
     tagline: "A remote Himalayan valley beyond the Razdan pass",
     description: [
       "Gurez is the far edge of Kashmir — a remote valley of the Kishanganga (Neelum) river, wooden Dard-Shina villages and the pyramid-shaped Habba Khatoon peak. The road over the Razdan pass is long, so this is a destination for those with time.",
@@ -269,6 +276,7 @@ export const destinations: Destination[] = [
     slug: "jammu",
     name: "Jammu",
     region: "jammu",
+    shortTagline: "Temples, forts and the gateway south.",
     tagline: "The city of temples and the gateway to the hills",
     description: [
       "Jammu is the winter capital of the state and the natural entry point for pilgrims heading to Katra and Vaishno Devi. The old city holds the Raghunath Temple complex, Bahu Fort above the Tawi river and a strong food culture worth an evening.",
@@ -306,6 +314,7 @@ export const destinations: Destination[] = [
     slug: "katra",
     name: "Katra",
     region: "jammu",
+    shortTagline: "The base of the Vaishno Devi yatra.",
     tagline: "Base of the Vaishno Devi pilgrimage",
     description: [
       "Katra is the base town for the Mata Vaishno Devi shrine in the Trikuta hills. Pilgrims register here, then walk, ride a pony or palanquin, or take the helicopter up to the shrine — a journey of around 12 km each way.",
@@ -341,6 +350,7 @@ export const destinations: Destination[] = [
     slug: "patnitop",
     name: "Patnitop",
     region: "jammu",
+    shortTagline: "A pine plateau above the highway.",
     tagline: "Pine plateau on the Jammu–Srinagar highway",
     description: [
       "Patnitop is a cool plateau at 2,024 metres set in deodar and pine, roughly midway between Jammu and Srinagar. In winter it catches snow; in summer it is a fresh pause on the road and a base for paragliding at nearby Sanasar.",
@@ -373,6 +383,7 @@ export const destinations: Destination[] = [
     slug: "leh",
     name: "Leh",
     region: "ladakh",
+    shortTagline: "A high-desert capital under the Ladakh range.",
     tagline: "High-desert capital under the Ladakh range",
     description: [
       "Leh sits at 3,500 metres in the Indus valley, its palace and monasteries stepping up the hillside under bare peaks. It is the hub for all of Ladakh — and the place to spend at least two nights adjusting to the altitude before going higher.",
@@ -415,6 +426,7 @@ export const destinations: Destination[] = [
     slug: "nubra",
     name: "Nubra Valley",
     region: "ladakh",
+    shortTagline: "Dunes, camels and the Khardung La road.",
     tagline: "Sand dunes, Bactrian camels and the Khardung La road",
     description: [
       "Over Khardung La, one of the highest motorable passes in the world, the road drops into Nubra — a green valley of apricot orchards and a small desert of white dunes at Hunder, where double-humped camels graze.",
@@ -456,6 +468,7 @@ export const destinations: Destination[] = [
     slug: "pangong",
     name: "Pangong Lake",
     region: "ladakh",
+    shortTagline: "A long, impossibly blue lake.",
     tagline: "A long, impossibly blue lake at 4,200 metres",
     description: [
       "Pangong Tso stretches 134 km across the Indian and Tibetan sides of the Changthang plateau. The water shifts from turquoise to steel to deep blue with the light, and the silence at dawn is hard to describe.",
@@ -491,6 +504,7 @@ export const destinations: Destination[] = [
     slug: "sham-valley",
     name: "Sham Valley",
     region: "ladakh",
+    shortTagline: "Monasteries and moonland by the Indus.",
     tagline: "The gentle Indus valley, west of Leh",
     description: [
       "Sham Valley is Ladakh at a softer altitude — Lamayuru's moonland, Alchi's painted 11th-century temples, Likir and the Indus at Nimmu. It is an easier trip than Nubra or Pangong, and good for acclimatisation.",
@@ -526,6 +540,7 @@ export const destinations: Destination[] = [
     slug: "tso-moriri",
     name: "Tso Moriri",
     region: "ladakh",
+    shortTagline: "A wild lake on the Rupshu plateau.",
     tagline: "A high-altitude lake in the wild Rupshu plateau",
     description: [
       "Tso Moriri lies at 4,522 metres in Rupshu, its shores grazed by kiang (wild ass) and dotted with nomad camps. The village of Korzok on its western bank has a small monastery and a handful of campsites.",

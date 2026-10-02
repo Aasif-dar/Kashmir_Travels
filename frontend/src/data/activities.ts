@@ -13,7 +13,7 @@ export const activities: Activity[] = [
     category: "snow",
     duration: "3–4 hours",
     difficulty: "easy",
-    price: 1800,
+    price: 20,
     priceUnit: "person",
     months: ALL,
     season: "Year-round; best with snow, Dec–Mar",
@@ -81,7 +81,7 @@ export const activities: Activity[] = [
     description: "A short guided ride on a quad bike across meadow or snow trails, with helmet and briefing.",
     styles: ["adventure", "friends"],
   },
-  {
+  { 
     id: "horse-riding",
     name: "Pony / horse ride",
     destinationIds: ["pahalgam", "gulmarg", "sonamarg", "doodhpathri", "yusmarg", "gurez", "patnitop"],

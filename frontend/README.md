@@ -1,7 +1,9 @@
 # Zabarwan Journeys — Kashmir tour & travel platform (demo)
 
 Premium boutique travel site for Kashmir, Jammu/Katra and Ladakh built with **Next.js 16, React 19, TypeScript, Tailwind CSS v4, Framer Motion, Zustand, React Hook Form + Zod**.
-The Trip Planner is the core product: Duration → Destinations → Itinerary → Hotels → Vehicle → Activities → Review → booking *request*.
+The Trip Planner is the core product: Duration → Destinations → Style → Itinerary → Stay → Vehicle → Experiences → Review → booking *request*.
+
+The look and feel is documented in **[DESIGN.md](DESIGN.md)** (tokens, type, photography treatment, components, voice, accessibility).
 
 ```bash
 cd frontend
@@ -36,4 +38,11 @@ Key rules live in data, not components: e.g. Nubra/Pangong/Tso Moriri require �
 All photos are real, openly licensed Wikimedia Commons images downloaded to `public/images` (see `/credits`, `src/data/image-credits.json`). Replace any image via the central registry `src/data/images.ts`. Scripts in `scripts/` (image search/download/optimise, e2e and a11y checks).
 
 ## Checks
-`node scripts/e2e.mjs http://localhost:3000` runs the whole journey (plan → book → confirmation → my trip → print → admin) in Chrome via playwright-core.
+```bash
+npm run lint                                   # tsc --noEmit
+npm run build && npm start -- -p 3112          # production build
+node scripts/e2e.mjs http://localhost:3112     # whole journey: 8 planner steps → request → confirmation → My Trip → print, + entry points + admin regression
+node scripts/a11y.mjs http://localhost:3112 390 # axe (WCAG 2 A/AA) on every public route at a given width
+node scripts/widths.mjs http://localhost:3112  # every public route at 375…1600 px: overflow, broken images, console errors, CLS
+```
+Visual-review helpers (`audit`, `states`, `fold`, `montage`) are described in DESIGN.md §10. All scripts drive the installed Chrome through playwright-core.

@@ -36,6 +36,8 @@ export interface TierDefinition {
   vehicleLabel: string;
   vehicleType: "sedan" | "suv" | "premium-suv";
   meals: string;
+  /** Meals covered on each overnight day, for the itinerary timeline. */
+  mealPlan: string[];
   activities: string;
   transfers: string;
   support: string;

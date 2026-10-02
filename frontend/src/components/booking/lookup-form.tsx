@@ -38,7 +38,7 @@ export function LookupForm() {
         <Input id="bookingId" placeholder="KT-2026-1234" autoCapitalize="characters" autoComplete="off" aria-invalid={!!errors.bookingId} aria-describedby={errors.bookingId ? "bookingId-error" : undefined} {...register("bookingId")} />
       </Field>
       {notFound && <p role="alert" className="mt-4 border border-burgundy/30 bg-burgundy/[0.05] px-4 py-3 text-sm text-burgundy">{notFound}</p>}
-      <Button type="submit" size="lg" className="mt-6" disabled={busy}>
+      <Button type="submit" size="lg" caps className="mt-6" disabled={busy}>
         {busy ? <Loader2 className="h-4 w-4 animate-spin" aria-hidden /> : null} View my trip <ArrowRight className="h-4 w-4" aria-hidden />
       </Button>
     </form>

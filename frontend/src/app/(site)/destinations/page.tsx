@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { DestinationCard } from "@/components/destinations/destination-card";
-import { ButtonLink } from "@/components/ui/button";
-import { EmptyState } from "@/components/ui/states";
-import { PageHeader } from "@/components/ui/section";
 import { FinalCta } from "@/components/home/faq-and-cta";
+import { ButtonLink } from "@/components/ui/button";
+import { PageHeader } from "@/components/ui/section";
+import { EmptyState } from "@/components/ui/states";
 import { cn } from "@/lib/utils";
 import { getDestinations } from "@/services/catalog";
 import type { Region } from "@/types/destination";
@@ -23,6 +23,16 @@ const tabs: { id: Region | "all"; label: string }[] = [
   { id: "ladakh", label: "Ladakh" },
 ];
 
+/** Repeating six-tile rhythm: one large, two medium, three across — so the grid never reads as identical cards. */
+const rhythm = [
+  "lg:col-span-7 lg:row-span-2",
+  "lg:col-span-5",
+  "lg:col-span-5",
+  "lg:col-span-4",
+  "lg:col-span-4",
+  "lg:col-span-4",
+];
+
 export default async function DestinationsPage({ searchParams }: { searchParams: Promise<{ region?: string }> }) {
   const { region } = await searchParams;
   const active = tabs.find((t) => t.id === region)?.id ?? "all";
@@ -30,28 +40,24 @@ export default async function DestinationsPage({ searchParams }: { searchParams:
   const list = active === "all" ? all : all.filter((d) => d.region === active);
   return (
     <>
-      <PageHeader eyebrow="Destinations" title={<>Where the road <span className="italic text-forest">takes you</span></>} lede="Fifteen places across three regions, each with its own season, pace and character. Pick a few and the planner will make sure they fit together.">
-        <nav aria-label="Filter by region" className="mt-8 flex flex-wrap gap-x-8 gap-y-2 border-b border-line">
+      <PageHeader eyebrow="Destinations" title="Where the road takes you" lede="Fifteen places across three regions, each with its own season, pace and character. Pick a few and the planner will make sure they fit together." image="aru">
+        <nav aria-label="Filter by region" className="mt-8 flex flex-wrap gap-x-7 gap-y-1">
           {tabs.map((t) => (
-            <Link
-              key={t.id}
-              href={t.id === "all" ? "/destinations" : `/destinations?region=${t.id}`}
-              aria-current={active === t.id ? "page" : undefined}
-              className={cn("-mb-px min-h-11 border-b-2 pb-2 pt-2 font-display text-2xl transition-colors", active === t.id ? "border-forest text-forest" : "border-transparent text-muted hover:text-forest")}
-            >
+            <Link key={t.id} href={t.id === "all" ? "/destinations" : `/destinations?region=${t.id}`} aria-current={active === t.id ? "page" : undefined} className={cn("min-h-11 border-b-2 pb-1 pt-2 font-display text-[1.5rem] leading-none transition-colors", active === t.id ? "border-forest text-forest" : "border-transparent text-muted hover:text-forest")}>
               {t.label}
             </Link>
           ))}
         </nav>
       </PageHeader>
-      <section className="container-x py-14 lg:py-20">
+      <section className="container-x py-12 lg:py-16">
         {list.length === 0 ? (
           <EmptyState title="No destinations here yet" description="Try another region." action={<ButtonLink href="/destinations">See all destinations</ButtonLink>} />
         ) : (
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            {list.map((d, i) => (
-              <DestinationCard key={d.id} destination={d} priority={i < 4} className={i === 0 && list.length > 4 ? "lg:col-span-2 lg:row-span-2 lg:aspect-auto" : undefined} />
-            ))}
+          <div className="grid gap-3 sm:grid-cols-2 lg:auto-rows-[250px] lg:grid-cols-12">
+            {list.map((d, i) => {
+              const slot = i % rhythm.length;
+              return <DestinationCard key={d.id} destination={d} size={slot === 0 && list.length > 2 ? "lg" : "md"} priority={i < 3} className={cn("aspect-[4/3] lg:aspect-auto", rhythm[slot], slot === 0 && "sm:col-span-2")} />;
+            })}
           </div>
         )}
       </section>

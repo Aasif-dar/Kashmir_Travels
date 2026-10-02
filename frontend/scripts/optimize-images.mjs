@@ -8,6 +8,7 @@ for (const f of fs.readdirSync(dir).filter((x) => x.endsWith(".jpg"))) {
   const key = f.replace(".jpg", "");
   let img = sharp(fs.readFileSync(p));
   const meta = await img.metadata();
+  if ((meta.width ?? 0) <= 1600) continue; // already optimised
   if (crops[key] && !meta.__cropped) {
     const c = crops[key];
     if (meta.width > 1400) img = img.extract({ left: c.left, top: c.top, width: Math.round(meta.width * c.wFrac), height: Math.round(meta.height * c.hFrac) });
